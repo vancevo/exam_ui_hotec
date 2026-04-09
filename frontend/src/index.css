@@ -29,7 +29,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 1rem; /* Reduced padding for mobile */
 }
 
 .app-container {
@@ -44,11 +44,24 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  .app-container {
+    min-height: auto; /* Allow content to dictate height on mobile */
+    border-radius: 0; /* Full width feel on mobile */
+  }
+}
+
 .pad-content {
   padding: 2rem;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+@media (max-width: 480px) {
+  .pad-content {
+    padding: 1.5rem 1rem; /* Tighter padding for small phones */
+  }
 }
 
 h1,
@@ -133,12 +146,17 @@ input.base-input:focus {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Layout for Quiz & Matrix */
 .quiz-layout {
-  width: 800px !important;
+  width: 100%; /* Changed from 800px !important */
   display: flex;
   flex: 1;
   flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  .quiz-layout {
+    flex-direction: column;
+  }
 }
 
 .quiz-main {
@@ -146,6 +164,13 @@ input.base-input:focus {
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  min-width: 0; /* Prevent flex overflow */
+}
+
+@media (max-width: 480px) {
+  .quiz-main {
+    padding: 1.25rem 1rem;
+  }
 }
 
 .quiz-sidebar {
@@ -160,16 +185,15 @@ input.base-input:focus {
 }
 
 @media (max-width: 768px) {
-  .quiz-layout {
-    flex-direction: column;
-  }
-
   .quiz-sidebar {
     width: 100%;
     border-left: none;
     border-top: 1px solid var(--border);
+    max-height: none;
   }
 }
+
+
 
 /* Matrix Styles */
 .matrix-grid {
@@ -177,6 +201,18 @@ input.base-input:focus {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
   margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .matrix-grid {
+    grid-template-columns: repeat(8, 1fr); /* More columns on wider mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .matrix-grid {
+    grid-template-columns: repeat(5, 1fr); /* Compact for phones */
+  }
 }
 
 .matrix-btn {
@@ -216,6 +252,20 @@ input.base-input:focus {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; /* Allow wrapping of buttons */
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .quiz-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .quiz-header > div {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
 
 .question-badge {
@@ -318,7 +368,18 @@ input.base-input:focus {
 .quiz-footer {
   display: flex;
   justify-content: space-between;
-  margin-top: auto;
+  margin-top: 2rem; /* Ensure space before footer */
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .quiz-footer {
+    flex-direction: column-reverse; /* Stack buttons on very small screens */
+    gap: 0.75rem;
+  }
+  .quiz-footer .btn {
+    width: 100%;
+  }
 }
 
 /* Results */
